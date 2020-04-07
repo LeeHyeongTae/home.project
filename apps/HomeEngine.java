@@ -6,12 +6,12 @@ public class HomeEngine {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		Member[] members = new Member[3];
-		System.out.println("0. 종료 "
-				+ "1. 점수계산"
-				+ "2. 회원가입"
-				+ "3. 회원목록"
-				+ "4. 회원 나이순 정렬");
+		MemberService memberService = new MemberService();
+		System.out.println("0.종료 "
+				+ "1.점수계산 "
+				+ "2.회원가입 "
+				+ "3.회원목록 "
+				+ "4.회원 나이순 정렬 ");
 		
 		while (true) {
 			switch(scanner.nextInt()) {
@@ -35,62 +35,66 @@ public class HomeEngine {
 				case 2: 
 						System.out.println("회원가입");
 						for(int i=0; i<3; i++) {
-						members[i] = join(scanner);
+							System.out.println(i+1+":이름, ID, PW, 나이 입력");
+							memberService.add(new MemberBean(scanner.next(), scanner.next(), scanner.next(), scanner.nextInt()
+									));
 						}
 						break;
 				case 3: 
 						System.out.println("가입된 회원 목록");
 						for(int i=0; i<3; i++) {
-						System.out.println(String.format("[이름:%s ID:%s PW:%s 나이:%d]\n", 
-											members[i].getUserName(),
-											members[i].getUserId(),
-											members[i].getUserPw(),
-											members[i].getUserAge()));
-						}
-						break;
-				case 4:
-						System.out.println("나이순으로 정렬된 회원 목록입니다.\n");
-						if(members[0].getUserAge()>members[1].getUserAge()) {
-							if(members[1].getUserAge()>members[2].getUserAge()) {
-								System.out.println(String.format("%s \n %s \n %s \n", 
-										members[0].getUserName(), members[1].getUserName(), members[2].getUserName()));
-							}else if(members[0].getUserAge()>members[2].getUserAge()){
-								System.out.println(String.format("%s \n %s \n %s \n", 
-										members[0].getUserName(), members[2].getUserName(), members[1].getUserName()));
-							}else {
-								System.out.println(String.format("%s \n %s \n %s \n", 
-										members[2].getUserName(), members[0].getUserName(), members[1].getUserName()));
-							}
-						}else if(members[1].getUserAge()>members[2].getUserAge()) {
-							if(members[0].getUserAge()>members[2].getUserAge()) {
-								System.out.println(String.format("%s \n %s \n %s \n", 
-										members[1].getUserName(), members[0].getUserName(), members[2].getUserName()));
-							}else {
-								System.out.println(String.format("%s \n %s \n %s \n", 
-										members[1].getUserName(), members[2].getUserName(), members[0].getUserName()));
-							}
-						}else {
-							System.out.println(String.format("%s \n %s \n %s \n", 
-									members[2].getUserName(), members[1].getUserName(), members[0].getUserName()));
+						MemberBean[] members = memberService.getMemberBean();
+						System.out.println(String.format("[이름:%s ID:%s PW:%s 나이:%d]\n]", members[i].getUserName(),
+															members[i].getUserId(), members[i].getUserPw(), members[i].getUserAge()));
 						}
 						break;
 			}
 		}
-		
 	}
-	public static Member join(Scanner scanner) {
-		Member member = new Member();
-		System.out.println("이름 입력");
-		member.setUserName(scanner.next());
-		System.out.println("ID 입력");
-		member.setUserId(scanner.next());
-		System.out.println("PW 입력");
-		member.setUserPw(scanner.next());
-		System.out.println("나이 입력");
-		member.setUserAge(scanner.nextInt());
+
+//				case 4:
+//						System.out.println("나이순으로 정렬된 회원 목록입니다.\n");
+//						if(members[0].getUserAge()>members[1].getUserAge()) {
+//							if(members[1].getUserAge()>members[2].getUserAge()) {
+//								System.out.println(String.format("%s \n %s \n %s \n", 
+//										members[0].getUserName(), members[1].getUserName(), members[2].getUserName()));
+//							}else if(members[0].getUserAge()>members[2].getUserAge()){
+//								System.out.println(String.format("%s \n %s \n %s \n", 
+//										members[0].getUserName(), members[2].getUserName(), members[1].getUserName()));
+//							}else {
+//								System.out.println(String.format("%s \n %s \n %s \n", 
+//										members[2].getUserName(), members[0].getUserName(), members[1].getUserName()));
+//							}
+//						}else if(members[1].getUserAge()>members[2].getUserAge()) {
+//							if(members[0].getUserAge()>members[2].getUserAge()) {
+//								System.out.println(String.format("%s \n %s \n %s \n", 
+//										members[1].getUserName(), members[0].getUserName(), members[2].getUserName()));
+//							}else {
+//								System.out.println(String.format("%s \n %s \n %s \n", 
+//										members[1].getUserName(), members[2].getUserName(), members[0].getUserName()));
+//							}
+//						}else {
+//							System.out.println(String.format("%s \n %s \n %s \n", 
+//									members[2].getUserName(), members[1].getUserName(), members[0].getUserName()));
+//						}
+//						break;
+			
 		
-		return member;
-	}
+		
+	
+//	public static MemberBean join(Scanner scanner) {
+//		MemberBean member = new MemberBean();
+//		System.out.println("이름 입력");
+//		member.setUserName(scanner.next());
+//		System.out.println("ID 입력");
+//		member.setUserId(scanner.next());
+//		System.out.println("PW 입력");
+//		member.setUserPw(scanner.next());
+//		System.out.println("나이 입력");
+//		member.setUserAge(scanner.nextInt());
+//		
+//		return member;
+//	}
 
 }
 

@@ -1,11 +1,17 @@
 package com.bit.apps;
 
-public class Member {
+public class MemberBean {
 	private String userName;
 	private String userId;
 	private String userPw;
 	private int userAge;
 	
+	public MemberBean(String userName, String userId, String userPw, int userAge) {
+		this.userName = userName;
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userAge = userAge;
+	}
 	public void setUserName(String setUserName) {
 		userName = setUserName;
 	}
