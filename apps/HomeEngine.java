@@ -2,52 +2,55 @@ package com.bit.apps;
 
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class HomeEngine {
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		MemberService memberService = new MemberService();
-		System.out.println("0.종료 "
-				+ "1.점수계산 "
-				+ "2.회원가입 "
-				+ "3.회원목록 "
-				+ "4.회원 나이순 정렬 ");
 		
+		MemberService memberService = new MemberService();		
+		SchoolService schoolService = new SchoolService();
 		while (true) {
-			switch(scanner.nextInt()) {
-				case 0: 
-						System.out.println("종료합니다.");
-						return;
-				case 1: 
-						School school = new School();
-						System.out.println("성적계산\n"
-								+ "이름 입력하세요.");
-						school.setName(scanner.next());
-						System.out.println("국어점수");
-						school.setKorean(scanner.nextInt());
-						System.out.println("영어점수");
-						school.setEnglish(scanner.nextInt());
-						System.out.println("수학점수");
-						school.setMath(scanner.nextInt());
-						System.out.println(String.format("[%s: 총점: %d 평균: %d 학점: %s]", 
-								school.getName(), school.total(), school.average(), school.grade()));
-						break;
-				case 2: 
-						System.out.println("회원가입");
+			switch(JOptionPane.showInputDialog(null, "0.종료 "
+					+ "1.점수입력 "
+					+ "2.점수출력 "
+					+ "3.회원목록 "
+					+ "4.회원 나이순 정렬 ", "")) {
+				case "0": return;
+				case "1":
 						for(int i=0; i<3; i++) {
-							System.out.println(i+1+":이름, ID, PW, 나이 입력");
-							memberService.add(new MemberBean(scanner.next(), scanner.next(), scanner.next(), scanner.nextInt()
-									));
+							String[] values = JOptionPane.showInputDialog(null, "점수입력: 이름, 국어, 영어, 수학").split(regex);
+							schoolService.add(new School(values[0], values[1], values[2], values[3]));
 						}
+//						School school = new School();
+//						System.out.println("성적계산\n"
+//								+ "이름 입력하세요.");
+//						school.setName(scanner.next());
+//						System.out.println("국어점수");
+//						school.setKorean(scanner.nextInt());
+//						System.out.println("영어점수");
+//						school.setEnglish(scanner.nextInt());
+//						System.out.println("수학점수");
+//						school.setMath(scanner.nextInt());
+//						System.out.println(String.format("[%s: 총점: %d 평균: %d 학점: %s]", 
+//								school.getName(), school.total(), school.average(), school.grade()));
 						break;
-				case 3: 
-						System.out.println("가입된 회원 목록");
-						for(int i=0; i<3; i++) {
-						MemberBean[] members = memberService.getMemberBean();
-						System.out.println(String.format("[이름:%s ID:%s PW:%s 나이:%d]\n]", members[i].getUserName(),
-															members[i].getUserId(), members[i].getUserPw(), members[i].getUserAge()));
-						}
-						break;
+//				case "2": 
+//						System.out.println("회원가입");
+//						for(int i=0; i<3; i++) {
+//							System.out.println(i+1+":이름, ID, PW, 나이 입력");
+//							memberService.add(new MemberBean(scanner.next(), scanner.next(), scanner.next(), scanner.nextInt()
+//									));
+//						}
+//						break;
+//				case "3": 
+//						System.out.println("가입된 회원 목록");
+//						for(int i=0; i<3; i++) {
+//						MemberBean[] members = memberService.getMemberBean();
+//						System.out.println(String.format("[이름:%s ID:%s PW:%s 나이:%d]\n]", members[i].getUserName(),
+//															members[i].getUserId(), members[i].getUserPw(), members[i].getUserAge()));
+//						}
+//						break;
 			}
 		}
 	}
@@ -95,6 +98,6 @@ public class HomeEngine {
 //		
 //		return member;
 //	}
-
+	
 }
 
