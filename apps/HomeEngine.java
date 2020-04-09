@@ -1,7 +1,5 @@
 package com.bit.apps;
 
-import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 public class HomeEngine {
@@ -9,7 +7,7 @@ public class HomeEngine {
 	public static void main(String[] args) {
 		
 		MemberService memberService = new MemberService();		
-		SchoolService schoolService = new SchoolService();
+		SchoolServiceImpl schoolService = new SchoolServiceImpl();
 		while (true) {
 			switch(JOptionPane.showInputDialog(null, "0.종료 "
 					+ "1.점수입력 "
@@ -19,8 +17,12 @@ public class HomeEngine {
 				case "0": return;
 				case "1":
 						for(int i=0; i<3; i++) {
-							String[] values = JOptionPane.showInputDialog(null, "점수입력: 이름, 국어, 영어, 수학").split(regex);
-							schoolService.add(new School(values[0], values[1], values[2], values[3]));
+							String[] values = JOptionPane.showInputDialog(null, "점수입력: 이름, 국어, 영어, 수학").split(",");
+							School school = new School();
+							school.getName(values[i]);
+							school.getKorean(values[i]);
+							school.getEnglish(values[i]);
+							school.getMath(values[i]);
 						}
 //						School school = new School();
 //						System.out.println("성적계산\n"
