@@ -10,5 +10,6 @@ public interface SchoolService {
 	public String Grade(School member);
 	public int total(School member);
 	public int average(School member);
+	public String PrintGrade();
 	
 }

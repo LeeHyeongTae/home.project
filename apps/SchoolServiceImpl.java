@@ -52,6 +52,19 @@ public class SchoolServiceImpl implements SchoolService {
 	public int average(School member) {
 		return total(member) / 3;
 	}
+	@Override
+	public String PrintGrade() {
+		String message = "";
+		for(int i=0; i<3; i++) {
+			School[] members = getMembers();
+			message += String.format("[이름:%s 총점:%d 평균:%d 등급:%s]", 
+					members[i].getName(),
+					total(members[i]),
+					average(members[i]),
+					Grade(members[i]));
+		}
+		return message;
+	}
 
 	
 }
