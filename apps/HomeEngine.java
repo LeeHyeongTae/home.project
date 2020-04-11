@@ -11,7 +11,7 @@ public class HomeEngine {
 			switch(JOptionPane.showInputDialog(null, "0.종료 "
 					+ "1.점수입력 "
 					+ "2.점수출력 "
-					+ "3.회원목록 "
+					+ "3.성적순 이름 출력 "
 					+ "4.회원 나이순 정렬 ", "")) {
 				case "0": return;
 				case "1":
@@ -22,11 +22,26 @@ public class HomeEngine {
 							school.setKorean(Integer.parseInt(values[i]));
 							school.setEnglish(Integer.parseInt(values[i]));
 							school.setMath(Integer.parseInt(values[i]));
+							schoolService.add(school);
 						}
 						break;
 				case "2": //점수출
 						JOptionPane.showMessageDialog(null, schoolService.PrintGrade());
 						break;
+				case "3": //성적순 이름 출력
+						School[] getmembers = schoolService.getMembers();
+						School[] rank = new School[3];
+						for(int i=0; i<rank.length; i++) {
+							for(int j=0; j<rank.length; j++) {
+								if(schoolService.total(getmembers[i])>schoolService.total(getmembers[j])) {
+									rank[i] = getmembers[i];
+								}else {
+									rank[i] = getmembers[j];
+								}
+							}
+							System.out.println(i+1+"등 "+ rank[i].getName());
+						}
+					break;
 //				case "3": 
 //						System.out.println("가입된 회원 목록");
 //						for(int i=0; i<3; i++) {
