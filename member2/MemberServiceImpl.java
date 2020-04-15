@@ -39,6 +39,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member login(Member member) {
 		Member result = new Member();
+		System.out.println(members[0].getUserId());
+		System.out.println(members[0].getPassword());
+		System.out.println(member.getUserId());
+		System.out.println(member.getPassword());
 		for(int i=0; i<members.length; i++) {
 		if(member.getUserId().equals(members[i].getUserId()) 
 				&& member.getPassword().equals(members[i].getPassword())) {
@@ -51,7 +55,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public String getToString() {
-		String result = new String();
+		String result = "";
 		for(int i=0; i<members.length; i++) {
 		result += members[i].getString()+"\n";
 		}

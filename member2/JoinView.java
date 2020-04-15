@@ -166,11 +166,13 @@ public class JoinView extends JFrame implements ActionListener {
 		}else if(e.getSource()==loginButton) {
 			JOptionPane.showMessageDialog(this, "로그인");
 			Member member = new Member();
-			member.setUserId(nameText.getText());
+			member.setUserId(useridText.getText());
 			member.setPassword(passwordText.getText());
+			System.out.println(member.getUserId());
+			System.out.println(member.getPassword());
 			if(member.getPassword().equals(memberService.login(member).getPassword())) {
 				JOptionPane.showMessageDialog(this, "로그인성공");
-				resultText.setText(member.getString());
+				resultText.setText(memberService.login(member).getString());
 			}else {
 				JOptionPane.showMessageDialog(this, "로그인실패");
 				resultText.setText("로그인실패");
