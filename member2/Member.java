@@ -42,5 +42,8 @@ public class Member {
 	public void setAddrs(String addrs) {
 		this.addrs = addrs;
 	}
+	public String getString() {
+		return "이름:"+name+" ID:"+userId+" 비밀번호:"+password+" 주민번호:"+ssn+" 주소:"+addrs;
+	}
 	
 }

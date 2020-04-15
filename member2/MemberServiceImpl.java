@@ -38,8 +38,24 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public Member login(Member member) {
-		
-		return member;
+		Member result = new Member();
+		for(int i=0; i<members.length; i++) {
+		if(member.getUserId().equals(members[i].getUserId()) 
+				&& member.getPassword().equals(members[i].getPassword())) {
+			result = members[i];
+			break;
+		}
+		}
+		return result;
+	}
+
+	@Override
+	public String getToString() {
+		String result = new String();
+		for(int i=0; i<members.length; i++) {
+		result += members[i].getString()+"\n";
+		}
+		return result;
 	}
 
 }

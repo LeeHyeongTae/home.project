@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -21,6 +22,7 @@ public class JoinView extends JFrame implements ActionListener {
     private JTextArea resultText; 
     private JButton submitButton, listButton, loginButton; 
     public MemberService memberService;
+    
     public void open(){ 
         memberService = new MemberServiceImpl();
     	setTitle("Swing Exercise"); 
@@ -101,19 +103,22 @@ public class JoinView extends JFrame implements ActionListener {
         submitButton = new JButton("Submit"); 
         submitButton.setFont(new Font("Arial", Font.PLAIN, 15)); 
         submitButton.setSize(100, 20); 
-        submitButton.setLocation(150, 450); 
+        submitButton.setLocation(120, 450);
+        submitButton.addActionListener(this);
         container.add(submitButton); 
   
         listButton = new JButton("List"); 
         listButton.setFont(new Font("Arial", Font.PLAIN, 15)); 
         listButton.setSize(100, 20); 
-        listButton.setLocation(270, 450); 
+        listButton.setLocation(240, 450); 
+        listButton.addActionListener(this);
         container.add(listButton); 
 
         loginButton = new JButton("Login"); 
         loginButton.setFont(new Font("Arial", Font.PLAIN, 15)); 
         loginButton.setSize(100, 20); 
-        loginButton.setLocation(390, 450); 
+        loginButton.setLocation(360, 450);
+        loginButton.addActionListener(this);
         container.add(loginButton); 
   
         resultText = new JTextArea(); 
@@ -129,11 +134,47 @@ public class JoinView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitButton) {
+			JOptionPane.showMessageDialog(this, "저장");
+			nameText.setText("홍길동,유관순,이순신,안중근,이도");
+			useridText.setText("hong,you,lee,ann,leedo");
+			passwordText.setText("1,1,1,1,1");
+			ssnText.setText("910617-1,900110-2,941212-1,970517-1,890411-3");
+			addrText.setText("서울,서울,광주,하얼빈,부산");
+			String[] names = nameText.getText().split(",");
+			String[] userids = useridText.getText().split(",");
+			String[] passwords = passwordText.getText().split(",");
+			String[] ssns = ssnText.getText().split(",");
+			String[] addrs = addrText.getText().split(",");
+			for(int i=0; i<names.length; i++) {
+			Member member = new Member();
+			member.setName(names[i]);
+			member.setUserId(userids[i]);
+			member.setPassword(passwords[i]);
+			member.setSsn(ssns[i]);
+			member.setAddrs(addrs[i]);
+			memberService.add(member);
+			}
 			
 		}else if(e.getSource()==listButton) {
-			
+			JOptionPane.showMessageDialog(this, "리스트");
+			nameText.setText("");
+			useridText.setText("");
+			passwordText.setText("");
+			ssnText.setText("");
+			addrText.setText("");
+			resultText.setText(memberService.getToString());
 		}else if(e.getSource()==loginButton) {
-			
+			JOptionPane.showMessageDialog(this, "로그인");
+			Member member = new Member();
+			member.setUserId(nameText.getText());
+			member.setPassword(passwordText.getText());
+			if(member.getPassword().equals(memberService.login(member).getPassword())) {
+				JOptionPane.showMessageDialog(this, "로그인성공");
+				resultText.setText(member.getString());
+			}else {
+				JOptionPane.showMessageDialog(this, "로그인실패");
+				resultText.setText("로그인실패");
+			}
 		}
 		
 	} 

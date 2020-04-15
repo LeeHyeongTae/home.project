@@ -7,4 +7,5 @@ public interface MemberService {
 	public int getCount();
 	public void add(Member member);
 	public Member login(Member member);
+	public String getToString();
 	}
